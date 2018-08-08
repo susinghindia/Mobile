@@ -31,7 +31,7 @@ import * as loginActions from '../actions/actions'
 
 interface IMapStateToProps {
     Company_name: string,
-    Username: string,
+    Email: string,
     Password: string
   
   }
@@ -45,7 +45,7 @@ type MapDispatchToProps = {
   
 interface State {
     companyname: string;
-    username: string;
+    email: string;
     password:String;
 
   }
@@ -61,17 +61,17 @@ class login extends  React.Component<AppProps,State> {
         super(props);
         this.state = {
             companyname: props.Company_name,
-            username: props.Username,
+            email: props.Email,
             password: props.Password,
         };
       }
    
-    handleUserNameChnage = (e) => {
-        
-        this.setState({username: e.target.value});
+      handleEmailChange = (e) => {
+      
+        this.setState({email: e.target.value});
     }
 
-    handleCompanyChnage = (e) => {
+    handleCompanyChange = (e) => {
         
         this.setState({companyname: e.target.value});
     }
@@ -83,23 +83,19 @@ class login extends  React.Component<AppProps,State> {
 
     
     handleLogin = () => {
-        // console.log("UserName: " + this.state.username);
-        // console.log("Password: " + this.state.password);
-
-        let UserCredential = {UserName:  this.state.username,Password: this.state.password}
-
-        //alert(this.state.username)
+     
+        let UserCredential = {UserName:  this.state.email,Password: this.state.password}
 
         this.props.actions.login(UserCredential);
     }
    
     render() {
         //const { userlogin } = this.props.actions
-        const { Company_name, Username, Password } = this.props;
+        const { Company_name, Email, Password } = this.props;
 
         let Companyname = {Company_name} 
 
-        if (Username == undefined){
+        if (Email == undefined){
             return(
                 <Container>
                 <Header>
@@ -127,15 +123,19 @@ class login extends  React.Component<AppProps,State> {
                 <Content padder>
             
             
-            <TextInput type="text" name="Company" placeholder="Company" value={this.state.companyname} onChange={this.handleCompanyChnage} />
+            <TextInput type="text" name="Company" placeholder="Company" value={this.state.companyname} onChange={this.handleCompanyChange} />
 
-            <TextInput type="text" name="Email" placeholder="Email" value={this.state.username} onChange={this.handleUserNameChnage} />
+            <TextInput type="text" name="Email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
 
             <TextInput type="text" name="Password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
          
-            <Button block primary onPress={this.handleLogin}
-        
-            style={{marginTop: 10, marginBottom: 10}}><Text>Log in</Text></Button>
+           
+            {/* <Button block primary onPress={this.handleLogin} style={{marginTop: 10, marginBottom: 10}}><Text>Log in</Text></Button> */}
+
+            <TouchableOpacity    style={styles.loginScreenButton}     onPress={this.handleLogin}    >
+               <Text style={styles.submitText} >Login</Text>
+            </TouchableOpacity>            
+
                 <Card>
                     <CardItem>
                         <Body>
@@ -155,11 +155,10 @@ class login extends  React.Component<AppProps,State> {
 
   
 const mapStateToProps = state => {
-    console.log('test')
     console.log(state)
     return {
         Company_name: state.mobilereducer.Company_name,
-        Username: state.mobilereducer.Username,
+        Email: state.mobilereducer.Email,
         Password: state.mobilereducer.Password
     }
   }
@@ -193,5 +192,31 @@ submitButton: {
 },
 submitButtonText:{
     color: 'white'
-}
+},
+
+loginScreenButton:{
+    marginRight:40,
+    marginLeft:40,
+   marginTop:10,
+    paddingTop:10,
+    paddingBottom:10,
+    backgroundColor:'#1E6738',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  loginText:{
+      color:'#fff',
+      textAlign:'center',
+      paddingLeft : 10,
+      paddingRight : 10
+  },
+
+  submitText:{
+    color:'#fff',
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  }
+
 })

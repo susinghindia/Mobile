@@ -7,13 +7,20 @@ import St from '../helpers/storage'
  * @returns {string}
  * @private
  */
-const _buildBaseUrl = () => {
-   // return 'http://apicso.develop.heerlen'
-   return 'http://192.168.0.142:9100'
-   //return 'http://127.0.0.1:9100'
-    /*    const CLIENT = St.get('client')
-        const API = St.get('xdata')
-        return (CLIENT) ? CLIENT.host : API.host*/
+
+ const _buildBaseUrl = () => {
+    // return 'http://apicso.develop.heerlen'
+    return 'http://192.168.0.142:9100'
+   //return 'http://192.168.43.205:9100'
+
+     /*    const CLIENT = St.get('client')
+         const API = St.get('xdata')
+         return (CLIENT) ? CLIENT.host : API.host*/
+ }
+ 
+ const _buildBaseUrl_GMS = () => {
+   return 'http://192.168.0.142:9000'
+  // return 'http://192.168.43.205:9000'
 }
 
 /**
@@ -23,8 +30,19 @@ const _buildBaseUrl = () => {
  * @returns {string}
  * @private
  */
-const _buildUrl = (_url, _segments = {}) => {
-    return _buildBaseUrl() + _buildUrlSegments(_url, _segments)
+// const _buildUrl = (_url, _segments = {}) => {
+//     return _buildBaseUrl() + _buildUrlSegments(_url, _segments)
+// }
+
+const _buildUrl = (_url, _segments = {},APISource='') => {
+
+    console.log('APISource')
+    console.log(APISource)
+    if (APISource == 'SSO')
+        return _buildBaseUrl() + _buildUrlSegments(_url, _segments)
+    else
+        return _buildBaseUrl_GMS() + _buildUrlSegments(_url, _segments)
+     
 }
 
 /**
@@ -99,10 +117,18 @@ export async function _buildHeaders(_customHeaders = {}) {
  * @param _config
  * @returns {null}
  */
+// export const authRequest = (_method = 'GET', _url = '', _config = {}) => {
+//     return axios({
+//         method: _method,
+//         url: _buildUrl(_url, _config.segments,),
+//         headers: _buildHeaders(_config.headers),
+//         data: _config.body
+//     })
+// }
 export const authRequest = (_method = 'GET', _url = '', _config = {}) => {
     return axios({
         method: _method,
-        url: _buildUrl(_url, _config.segments),
+        url: _buildUrl(_url, _config.segments,'SSO'),
         headers: _buildHeaders(_config.headers),
         data: _config.body
     })
@@ -115,6 +141,8 @@ export const authRequest = (_method = 'GET', _url = '', _config = {}) => {
  * @param _config
  * @returns {Promise.<T>}
  */
+
+ /*
 export async function request (_method = 'GET', _url = '', _config = {}) {
     const headers = await _buildHeaders(_config.headers)
 
@@ -122,6 +150,28 @@ export async function request (_method = 'GET', _url = '', _config = {}) {
         timeout: 60000,
         method: _method,
         url: _buildUrl(_url, _config.segments),
+        headers,
+        data: _config.body
+    }
+
+    console.log('Request: ', JSON.stringify(request))
+    // axios(request).then((result) => console.log(result)).catch((error) => console.log(error.response, error.request, error.message))
+    return axios(request)
+}
+
+*/
+
+
+export async function request (_method = 'GET', _url = '',APISource='', _config = {}) {
+
+    console.log(APISource)
+    const headers = await _buildHeaders(_config.headers)
+
+    //console.log(API);
+    let request = {
+        timeout: 60000,
+        method: _method,
+        url: _buildUrl(_url, _config.segments,APISource),
         headers,
         data: _config.body
     }

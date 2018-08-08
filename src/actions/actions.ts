@@ -10,9 +10,21 @@ import * as actiontypes from './actiontypes'
 export function loginsuccess(data) {
     return {type: actiontypes.LOGIN_SUCCESS,data};
   }
+
+
+  export function setuserdata(data) {
+    return {type: actiontypes.SET_USERDATA,data};
+  }
+
   
   
 export function loginfailed() {
     return {type: actiontypes.LOGIN_FAILED};
   }
+
+
+  export function GetWorkOrders() {
+    return {type: actiontypes.GET_WORKORDERS};
+  }
+
   

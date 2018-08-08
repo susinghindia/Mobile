@@ -10,6 +10,7 @@ export function *watchAll() {
   yield all([
     takeLatest(actiontypes.LOGIN, GMSlogin),
     takeLatest(actiontypes.LOGIN_SUCCESS, GMSloginSuccess),
+    takeLatest(actiontypes.GET_WORKORDERS, GMSGetWorkOrders),
     
   ]);
 }
@@ -32,19 +33,39 @@ function* GMSlogin(action) {
 function* GMSloginSuccess(action) {
   try {
 
-    console.log(action)
 
-    if (action.data.response !=undefined && (action.data.response.status ==401 || action.data.response.status ==400) )
+
+    if (action.data.response !=undefined && (action.data.response.status ==401 || action.data.response.status ==400 ) )
   {
     console.log( action.data.response.status)
     yield put({type: actiontypes.LOGIN_FAILED})    
   }
   else{
-    var data = yield GMSAPI.GMSloginSuccess(action)
-    yield call(history.push, '/main')
+    var data = yield call(GMSAPI.GMSloginSuccess,action)
+    yield put({type: actiontypes.SET_USERDATA,data})    
+   // yield call(history.push, '/main')
+    yield call(history.push, '/DashBoard')
+    
   }
      
   } catch (error) {
+     
+     yield put({type: actiontypes.LOGIN_FAILED, error})
+     
+  }
+}
+
+
+
+function* GMSGetWorkOrders() {
+  try {
+
+    var data = yield GMSAPI.GMSGetWorkOrders()
+    yield put({type: actiontypes.GET_WORKORDERS_SUCCESS,data})
+    
+  }
+     
+   catch (error) {
      
      yield put({type: actiontypes.LOGIN_FAILED, error})
      
