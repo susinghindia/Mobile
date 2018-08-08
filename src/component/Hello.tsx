@@ -15,13 +15,20 @@ export class Hello extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    if ((props.enthusiasmLevel || 0) <= 0) {
-      throw new Error('You could be a little more enthusiastic. :D');
-    }
+    // if ((props.enthusiasmLevel || 0) <= 0) {
+    //   throw new Error('You could be a little more enthusiastic. :D');
+    // }
 
+    // this.state = {
+    //   enthusiasmLevel: props.enthusiasmLevel || 1,
+    // };
+
+
+    
     this.state = {
-      enthusiasmLevel: props.enthusiasmLevel || 1,
-    };
+      enthusiasmLevel: 11,
+  
+  };
   }
 
   onIncrement = () =>

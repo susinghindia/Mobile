@@ -1,0 +1,2 @@
+export hStorage from './storage'
+
