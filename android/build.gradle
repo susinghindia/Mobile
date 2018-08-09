@@ -28,8 +28,13 @@ allprojects {
             url 'https://maven.google.com/'
             name 'Google'
         }
+
+        maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
     }
 }
+
+
 
 ext {
     buildToolsVersion = "26.0.3"
@@ -38,3 +43,5 @@ ext {
     targetSdkVersion = 26
     supportLibVersion = "26.1.0"
 }
+
+

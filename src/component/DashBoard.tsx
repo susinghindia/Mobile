@@ -5,8 +5,9 @@ import * as DashBoardActiosn from '../actions/actions'
 import {Body, Button, Card, CardItem, CheckBox, Container, Content, Form, Header, Input, Item, Label, Left, ListItem, Right, Text, Title,} from "native-base";
 import { View, TouchableOpacity, TextInput, StyleSheet,FlatList ,Dimensions} from 'react-native'
 import {connect} from "react-redux"
-
-
+import LicensePlate from './licenseplate'
+import Link from  'react-router-native'
+//import Link from  'react-router-redux'
 
 
 const mapStateToProps = state => {
@@ -63,6 +64,10 @@ const mapStateToProps = state => {
 
     class DashBoard extends  React.Component<AppProps> {
 
+        addImageToWorkOrder = () => {
+            this.props.navigation.navigate("Screen");
+                };
+
         getWorkOrders = () => {
          
             
@@ -107,7 +112,25 @@ const mapStateToProps = state => {
                         data={WorkOrders}
                         renderItem={({item}) => (
                             <View style={styles.itemContainer}>
-                            <Text style={styles.item}>{item.Vehicle.Registration}</Text>
+                            {/* <Text style={styles.item}>{item.Vehicle.Registration}</Text> */}
+
+                                  {/* <LicensePlate registration={ item.Vehicle.Registration }/> */}
+
+                                <Button block iconLeft >
+                                    <Text> {item.Vehicle.Registration}</Text>
+                                   
+                                </Button>
+ 
+                                 <Button
+                                   
+                                   onPress={this.addImageToWorkOrder}
+                                 
+                                   color="#343434">
+
+                                    <Text>Add Image</Text>
+                                   
+                                   </Button>
+
                             </View>
                         )}
                         keyExtractor={item => item.Vehicle.UUID}
@@ -122,7 +145,7 @@ const mapStateToProps = state => {
     export default connect<IMapStateToProps,any>(mapStateToProps, mapDispatchToProps)(DashBoard)
 
 
-    const numColumns = 3;
+    const numColumns = 2;
     const size = Dimensions.get('window').width/numColumns;
 
     const styles = StyleSheet.create({
