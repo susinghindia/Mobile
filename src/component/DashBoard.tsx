@@ -3,7 +3,7 @@ import React from 'react';
 import {bindActionCreators} from "redux"
 import * as DashBoardActiosn from '../actions/actions'
 import {Body, Button, Card, CardItem, CheckBox, Container, Content, Form, Header, Input, Item, Label, Left, ListItem, Right, Text, Title,} from "native-base";
-import { View, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { View, TouchableOpacity, TextInput, StyleSheet,FlatList ,Dimensions} from 'react-native'
 import {connect} from "react-redux"
 
 
@@ -13,7 +13,13 @@ const mapStateToProps = state => {
     console.log('dashboard')
     console.log(state)
     console.log('state.mobilereducer')
-    console.log( state.mobilereducer)
+    console.log(  state.mobilereducer)
+
+    if ( state.mobilereducer.WorkOrders !=undefined)
+    {
+        console.log('state.mobilereducer.WorkOrders')
+        console.log(  state.mobilereducer.WorkOrders)
+    }
     return {
         CompanyUUID: state.mobilereducer.UserData.CompanyUUID ,
         Email: state.mobilereducer.UserData.Email ,
@@ -39,7 +45,8 @@ const mapStateToProps = state => {
         FirstName: string
         LastName: string,
         MiddleName: string,
-        Username: string
+        Username: string,
+        WorkOrders:any
     
     }
 
@@ -64,7 +71,7 @@ const mapStateToProps = state => {
 
         render() {
            
-            const { CompanyUUID, Email, FirstName,LastName,MiddleName,Username } = this.props;
+            const { CompanyUUID, Email, FirstName,LastName,MiddleName,Username,WorkOrders } = this.props;
     
             if (Email == undefined){
                 return(
@@ -94,10 +101,18 @@ const mapStateToProps = state => {
                     <Content padder>
                             
                         <Button block primary onPress={this.getWorkOrders}style={{marginTop: 10, marginBottom: 10}}><Text>Work Orders</Text></Button>
-                        <Button block  style={styles.licenseplate}><Text> Orders</Text></Button>
-                        <View >
-                            <Text style={styles.licenseplate}>123</Text>
-                        </View>
+                        
+                        
+                    {WorkOrders!=undefined  &&       WorkOrders[0]!=undefined &&            <FlatList
+                        data={WorkOrders}
+                        renderItem={({item}) => (
+                            <View style={styles.itemContainer}>
+                            <Text style={styles.item}>{item.Vehicle.Registration}</Text>
+                            </View>
+                        )}
+                        keyExtractor={item => item.Vehicle.UUID}
+                        numColumns={numColumns} />}
+
                     </Content>
                 </Container>
             )
@@ -105,6 +120,10 @@ const mapStateToProps = state => {
     }
 
     export default connect<IMapStateToProps,any>(mapStateToProps, mapDispatchToProps)(DashBoard)
+
+
+    const numColumns = 3;
+    const size = Dimensions.get('window').width/numColumns;
 
     const styles = StyleSheet.create({
         container: {
@@ -129,5 +148,16 @@ const mapStateToProps = state => {
             marginTop: 10, 
             marginBottom: 10,
             color: '#121212'
-  }
+        },
+
+        itemContainer: {
+            width: size,
+            height: size,
+          },
+          item: {
+            flex: 1,
+            margin: 3,
+            backgroundColor: 'lightblue',
+          }
+
         })
