@@ -65,7 +65,16 @@ const mapStateToProps = state => {
 
     class DashBoard extends  React.Component<AppProps> {
 
-        addImageToWorkOrder = () => {
+        // addImageToWorkOrder = (UUID) => {
+            
+        //     alert(1)
+        //     this.props.actions.Navigation("Hello");
+        //         };
+
+
+        addImageToWorkOrder(UUID)  {
+            
+            alert(UUID)
             this.props.actions.Navigation("Hello");
                 };
 
@@ -131,6 +140,11 @@ const mapStateToProps = state => {
                                     <Text>Add Image</Text>
                                    
                                    </Button>
+
+
+                                    <TouchableOpacity       onPress={() => this.addImageToWorkOrder(item.Workorder.UUID)}    >
+                                    <Text  >Add Image</Text>
+                                     </TouchableOpacity>    
 
                             </View>
                         )}
