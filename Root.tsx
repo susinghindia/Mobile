@@ -9,6 +9,7 @@ import {Root as NBRoot} from 'native-base'
 import Login from "./src/component/Login"
 import Hello from "./src/component/Hello"
 import DashBoard from "./src/component/DashBoard"
+import WorkOrderImage from "./src/component/WorkOrderImage"
 
 import { store} from './src/store/configurestore'
 
@@ -26,7 +27,7 @@ export const history = createHistory()
                 <NBRoot>
                     <Switch>
                         <Route exact path='/' component={Login}/>
-                        <Route exact path='/main' component={Hello}/>
+                        <Route exact path='/main' component={WorkOrderImage}/>
                         <Route exact path='/dashboard' component={DashBoard}/>
                     
                     </Switch>

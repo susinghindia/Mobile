@@ -54,6 +54,7 @@ const mapStateToProps = state => {
     type MapDispatchToProps = {
         actions: {
             GetWorkOrders: typeof DashBoardActiosn.GetWorkOrders
+            Navigation: typeof DashBoardActiosn.Navigation
         }
     }
 
@@ -65,7 +66,7 @@ const mapStateToProps = state => {
     class DashBoard extends  React.Component<AppProps> {
 
         addImageToWorkOrder = () => {
-            this.props.navigation.navigate("Screen");
+            this.props.actions.Navigation("Hello");
                 };
 
         getWorkOrders = () => {

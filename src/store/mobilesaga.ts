@@ -11,6 +11,7 @@ export function *watchAll() {
     takeLatest(actiontypes.LOGIN, GMSlogin),
     takeLatest(actiontypes.LOGIN_SUCCESS, GMSloginSuccess),
     takeLatest(actiontypes.GET_WORKORDERS, GMSGetWorkOrders),
+    takeLatest(actiontypes.NAVIGATION, Navigation),
     
   ]);
 }
@@ -68,6 +69,18 @@ function* GMSGetWorkOrders() {
    catch (error) {
      
      yield put({type: actiontypes.LOGIN_FAILED, error})
+     
+  }
+}
+
+
+function* Navigation(action) {
+  try {
+   
+    yield call(history.push, '/main')
+  } catch (error) {
+     
+     yield put({type: actiontypes.LOGIN_FAILED})
      
   }
 }

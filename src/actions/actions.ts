@@ -28,3 +28,10 @@ export function loginfailed() {
   }
 
   
+  export function Navigation(UINAME) {
+    return {type: actiontypes.NAVIGATION,UINAME};
+  }
+
+  
+
+  
