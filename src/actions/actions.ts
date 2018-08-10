@@ -38,6 +38,12 @@ export function loginfailed() {
 
 
   
+  export function UploadImage(data) {
+    return {type: actiontypes.UPLOAD_IMAGE,data};
+  }
+
+
+  
 
   
   

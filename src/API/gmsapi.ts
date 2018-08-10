@@ -54,7 +54,6 @@ class GMSAPI {
 
 
     static GMSGetWorkOrders(){
-        requestCameraPermission()
         
         return    http.request('GET', '/modules/workorders?fields=Workorder.ID%2CVehicle.Registration%2CAppointment.Date%2CVehicle.Manufacturer%2CVehicle.Model%2CAccount.Name&page=1','GMS')
             .then((result) => {
@@ -71,10 +70,33 @@ class GMSAPI {
            
         }
 
+    
+    static uploadImage(data){
+            //requestCameraPermission()
+
+            console.log('uploadImage')
+            console.log(data)
+            console.log('uploadImage-end')
+            
+            // return    http.uploadImage() ('GET', '/modules/workorders?fields=Workorder.ID%2CVehicle.Registration%2CAppointment.Date%2CVehicle.Manufacturer%2CVehicle.Model%2CAccount.Name&page=1','GMS')
+            //     .then((result) => {
+            //         let data = result.data.Data
+            //         console.log(data)
+            //         return result.data.Data
+            //     })
+            //     .catch((error) => {
+            //         return error
+            //     })
+            
+    
+    
+               
+            }
+
 
         
 
-        static uploadImage  (category, PicturePath)  {
+        static uploadImage_test  (category, PicturePath)  {
             return RNFetchBlob.fetch('POST', 'http://192.168.0.142/module/media/private/employee-images/test.jpg', {
                 Authorization: '-pFwrJS48FLoFrCMb41n8idA8oBwxk-U3unSOgCHjIBCEixyMRD5z2Jjuw=o7LJJom5H',
                 ShopToken: 'i9JoO5uuKP7D9eB6DZbxsnPM0zUNT_WJBV210nrjOS5M0Vj50m1sFE0CVvUJHHetPOAW',

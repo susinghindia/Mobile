@@ -85,6 +85,12 @@ interface IMapStateToProps {
 
 }
 
+type MapDispatchToProps = {
+    actions: {
+        UploadImage: typeof cameraActions.UploadImage
+    }
+}
+
 const mapStateToProps = state => {
     
     return {
@@ -92,24 +98,34 @@ const mapStateToProps = state => {
     }
   }
 
+  
+  const mapDispatchToProps = dispatch => {
+    return {actions: bindActionCreators(cameraActions,dispatch)}
+    
+  }
 
+  type AppProps =
+  & IMapStateToProps
+  & MapDispatchToProps
+// const mapDispatchToProps = (dispatch) => {
+//     /* code change */
+//     return bindActionCreators({...cameraActions}, dispatch);
+// }
 
-const mapDispatchToProps = (dispatch) => {
-    /* code change */
-    return bindActionCreators({...cameraActions}, dispatch);
-}
-
-class WorkOrderImage extends React.Component <IMapStateToProps> {
+class WorkOrderImage extends React.Component <AppProps> {
 
     
     takePicture() {
        
         const options = {};
+      
        // alert(this.props.WORKORDER_UUID)
         //options.location = ...
         this.camera.capture({metadata: options})
             .then((data) => {
-                this.props.uploadImage('employee-images', data.path).then((result) => console.log('Reponse: ', result)).catch((error) => console.log('Error: ', error))
+                let UploadData = {category: 'employee-images',dataPath:data.path,UUID:this.props.WORKORDER_UUID}
+               // this.props.actions.UploadImage('employee-images', data.path).then((result) => console.log('Reponse: ', result)).catch((error) => console.log('Error: ', error))
+               this.props.actions.UploadImage(UploadData)
             })
             .catch(err => console.error(err));
     }

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import forEach from 'lodash/forEach'
 import St from '../helpers/storage'
-
+import RNFetchBlob from "react-native-fetch-blob"
 
 /**
  * Build the base URL
@@ -179,6 +179,24 @@ export async function request (_method = 'GET', _url = '',APISource='', _config 
     console.log('Request: ', JSON.stringify(request))
     // axios(request).then((result) => console.log(result)).catch((error) => console.log(error.response, error.request, error.message))
     return axios(request)
+}
+
+
+
+export async function uploadImage (category, PicturePath, _config = {}) {
+
+
+    const headers = await _buildHeaders(_config.headers)
+
+    return RNFetchBlob.fetch('POST', 'http://192.168.0.142:9000/modules/media/private/employee-images', {
+        Authorization : headers,
+    }, RNFetchBlob.wrap(PicturePath))
+        .then((res) => {
+        console.log(res.text())
+    })
+    .catch((err) => {
+    // error handling ..
+    })
 }
 
 /**
