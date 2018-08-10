@@ -2,6 +2,7 @@ import axios from 'axios'
 import forEach from 'lodash/forEach'
 import St from '../helpers/storage'
 
+
 /**
  * Build the base URL
  * @returns {string}

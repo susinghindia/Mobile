@@ -1,9 +1,20 @@
 import * as http from "../utils/http"
 import hStorage from '../helpers/storage'
+import RNFetchBlob from 'react-native-fetch-blob'
 
 
+import {requestCameraPermission} from '../utils/vehicle'
+//import requestReadWritePermission from '../component/WorkOrderImage'
+//import requestReadPermission from '../component/WorkOrderImage'
+
+
+
+
+const MEDIA_PRIVATE_URL_CAT_FILE = '/media/private/:category/:filename'
 class GMSAPI {
 
+
+    
     static GMSLogin(action){
 
        const body = {"Password": action.UserCredential.Password,	"Email": action.UserCredential.UserName};
@@ -43,6 +54,7 @@ class GMSAPI {
 
 
     static GMSGetWorkOrders(){
+        requestCameraPermission()
         
         return    http.request('GET', '/modules/workorders?fields=Workorder.ID%2CVehicle.Registration%2CAppointment.Date%2CVehicle.Manufacturer%2CVehicle.Model%2CAccount.Name&page=1','GMS')
             .then((result) => {
@@ -54,7 +66,22 @@ class GMSAPI {
                 return error
             })
         
- }
+
+
+           
+        }
+
+
+        
+
+        static uploadImage  (category, PicturePath)  {
+            return RNFetchBlob.fetch('POST', 'http://192.168.0.142/module/media/private/employee-images/test.jpg', {
+                Authorization: '-pFwrJS48FLoFrCMb41n8idA8oBwxk-U3unSOgCHjIBCEixyMRD5z2Jjuw=o7LJJom5H',
+                ShopToken: 'i9JoO5uuKP7D9eB6DZbxsnPM0zUNT_WJBV210nrjOS5M0Vj50m1sFE0CVvUJHHetPOAW',
+            }, RNFetchBlob.wrap(PicturePath))
+            
+        
+        }
 
   
 }

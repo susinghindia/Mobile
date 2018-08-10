@@ -58,6 +58,28 @@ export async function requestReadWritePermission() {
     }
   }
 
+
+  
+export async function requestReadPermission() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          'title': 'WorOrder Images',
+          'message': 'App needs access to write ' +
+                     'so you can save pictures.'
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("You can Read DIR")
+      } else {
+        console.log("You can not Read DIR")
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  }
+
 interface IMapStateToProps {
     WORKORDER_UUID: string,
 
