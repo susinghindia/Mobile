@@ -55,6 +55,7 @@ const mapStateToProps = state => {
         actions: {
             GetWorkOrders: typeof DashBoardActiosn.GetWorkOrders
             Navigation: typeof DashBoardActiosn.Navigation
+            SetWorkOrderUUID: typeof DashBoardActiosn.SetWorkOrderUUID
         }
     }
 
@@ -74,8 +75,9 @@ const mapStateToProps = state => {
 
         addImageToWorkOrder(UUID)  {
             
-            alert(UUID)
-            this.props.actions.Navigation("Hello");
+          //  alert(UUID)
+          this.props.actions.SetWorkOrderUUID(UUID);
+            this.props.actions.Navigation(UUID);
                 };
 
         getWorkOrders = () => {
@@ -131,7 +133,7 @@ const mapStateToProps = state => {
                                    
                                 </Button>
  
-                                 <Button
+                                 {/* <Button
                                    
                                    onPress={this.addImageToWorkOrder}
                                  
@@ -139,7 +141,7 @@ const mapStateToProps = state => {
 
                                     <Text>Add Image</Text>
                                    
-                                   </Button>
+                                   </Button> */}
 
 
                                     <TouchableOpacity       onPress={() => this.addImageToWorkOrder(item.Workorder.UUID)}    >

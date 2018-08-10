@@ -9,9 +9,8 @@ import St from '../helpers/storage'
  */
 
  const _buildBaseUrl = () => {
-    // return 'http://apicso.develop.heerlen'
-   // return 'http://192.168.0.142:9100'
-   return 'http://192.168.43.205:9100'
+    return 'http://192.168.0.142:9100'
+   //return 'http://192.168.43.205:9100'
 
      /*    const CLIENT = St.get('client')
          const API = St.get('xdata')
@@ -19,8 +18,8 @@ import St from '../helpers/storage'
  }
  
  const _buildBaseUrl_GMS = () => {
-   //return 'http://192.168.0.142:9000'
-   return 'http://192.168.43.205:9000'
+   return 'http://192.168.0.142:9000'
+   //return 'http://192.168.43.205:9000'
 }
 
 /**

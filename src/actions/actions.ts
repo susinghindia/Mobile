@@ -27,11 +27,19 @@ export function loginfailed() {
     return {type: actiontypes.GET_WORKORDERS};
   }
 
-  
-  export function Navigation(UINAME) {
-    return {type: actiontypes.NAVIGATION,UINAME};
+  export function SetWorkOrderUUID(UUID) {
+    return {type: actiontypes.SET_WORKORDER_UUID,UUID};
   }
 
+  
+  export function Navigation(UUID) {
+    return {type: actiontypes.NAVIGATION,UUID};
+  }
+
+
+  
+
+  
   
 
   
