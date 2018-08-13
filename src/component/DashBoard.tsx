@@ -23,7 +23,7 @@ const mapStateToProps = state => {
     }
     return {
         CompanyUUID: state.mobilereducer.UserData.CompanyUUID ,
-        Email: state.mobilereducer.UserData.Email ,
+        Email: state.mobilereducer.UserData.EmailAddress ,
         FirstName: state.mobilereducer.UserData.FirstName ,
         LastName: state.mobilereducer.UserData.LastName ,
         MiddleName: state.mobilereducer.UserData.MiddleName ,
@@ -147,6 +147,8 @@ const mapStateToProps = state => {
                                     <TouchableOpacity       onPress={() => this.addImageToWorkOrder(item.Workorder.UUID)}    >
                                     <Text  >Add Image</Text>
                                      </TouchableOpacity>    
+
+                                      
 
                             </View>
                         )}

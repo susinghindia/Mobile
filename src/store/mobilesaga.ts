@@ -78,7 +78,7 @@ function* GMSGetWorkOrders() {
 function* Navigation(action) {
   try {
    
-    yield call(history.push, '/main')
+    yield call(history.push, '/video')
   } catch (error) {
      
      yield put({type: actiontypes.LOGIN_FAILED})

@@ -17,7 +17,7 @@ class GMSAPI {
     
     static GMSLogin(action){
 
-       const body = {"Password": action.UserCredential.Password,	"Email": action.UserCredential.UserName};
+       const body = {"Password": action.UserCredential.Password,	"EmailAddress": action.UserCredential.UserName};
        //alert( action.UserCredential.Password + " : " +  action.UserCredential.UserName)
        //const body = {"Password": "P@ssw0rd",	"Email": "surjit.kumar+gmsNew@gmail.co"};
        //return  hStorage.set('client', 'sso').then(() => { 
@@ -28,7 +28,9 @@ class GMSAPI {
                 return result.data;
             })
             .catch((error) => {
+                console.log(error)
                 return error
+                
             })
      //   })    
     }
@@ -47,6 +49,7 @@ class GMSAPI {
                        return result.data.Data
                    })
                    .catch((error) => {
+                    console.log(error)
                     return error
                    })
            }) 
