@@ -174,7 +174,10 @@ class BadInstagramCloneApp extends Component<AppProps> {
 
       this.camera.takePictureAsync(options)
       .then((data) => {
-          let UploadData = {category: 'employee-images',dataPath:data.uri,UUID:this.props.WORKORDER_UUID}
+        console.log('data-camera')
+        console.log(data)
+        console.log('data-camera-end')
+          let UploadData = {category: 'employee-images',dataPath:data.uri,UUID:this.props.WORKORDER_UUID,base64Data:data.base64}
          this.props.actions.UploadImage(UploadData)
          //this.props.actions.UploadImage(UploadData)
 

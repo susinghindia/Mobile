@@ -74,6 +74,32 @@ class GMSAPI {
            
         }
 
+
+        static uploadImage_Post(data){
+
+           const config= {
+              
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                body: data.base64Data
+            }
+        
+            return    http.request('POST', '/media/private/employee-images/test_00006.jpg','GMS',config)
+                .then((result) => {
+                    let data = result.data.Data
+                    console.log(data)
+                    return result.data.Data
+                })
+                .catch((error) => {
+                    return error
+                })
+            
+    
+    
+               
+            }
+    
     
     static uploadImage(data){
             //requestCameraPermission()
@@ -81,7 +107,7 @@ class GMSAPI {
             console.log(data)
 
             
-            return    http.uploadImage(data.category,data.dataPath)
+            return    http.uploadImage_RN(data.category,data.dataPath)
                 .then((result) => {
                     let data = result.data.Data
                     console.log(data)
@@ -121,7 +147,26 @@ class GMSAPI {
 
 
         
-
+        static uploadImage_3(data){
+            //requestCameraPermission()
+    
+            console.log(data)
+    
+            
+            return    http.uploadImage_3(data.category,data.dataPath)
+                .then((result) => {
+                    let data = result.data.Data
+                    console.log(data)
+                    return result.data.Data
+                })
+                .catch((error) => {
+                    return error
+                })
+            
+    
+    
+               
+            }
           
   
 }
