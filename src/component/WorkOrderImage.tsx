@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {Body, Button, Container, Content, Header, Icon, Text, Title, Toast} from "native-base"
-import Camera from 'react-native-camera'
-import {StyleSheet, View} from 'react-native'
+//import Camera from 'react-native-camera'
+import { RNCamera } from 'react-native-camera';
+import {StyleSheet, View,TouchableOpacity} from 'react-native'
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 //import * as cameraActions from '../actions/camera'
@@ -160,26 +161,39 @@ class WorkOrderImage extends React.Component <AppProps> {
         else
 
         return (
-            <Container>
-                <Header>
-                    <Body>
-                    <Title>CarSys Upload Image {WORKORDER_UUID}</Title>
-                    </Body>
-                </Header>
-                <View style={styles.container}>
-                    <Camera
-                        ref={(cam) => {
-                            this.camera = cam;
-                        }}
-                        style={styles.preview}
-                        aspect={Camera.constants.Aspect.fill}
-                        orientation={Camera.constants.Orientation.auto}
-                    >
-                        <Button block iconLeft onPress={this.takePicture.bind(this)}><Icon name='camera'/><Text>Take picture</Text></Button>
-                        
-                    </Camera>
-                </View>
-            </Container>
+
+
+            <View style={styles.container}>
+            <RNCamera
+                ref={ref => {
+                  this.camera = ref;
+                }}
+                style = {styles.preview}
+                type={RNCamera.Constants.Type.back}
+                flashMode={RNCamera.Constants.FlashMode.on}
+                permissionDialogTitle={'Permission to use camera'}
+                permissionDialogMessage={'We need your permission to use your camera phone'}
+               
+            />
+            <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
+            <TouchableOpacity
+               
+                style = {styles.capture}
+            >
+                <Text style={{fontSize: 14}}> Video </Text>
+            </TouchableOpacity>
+    
+            <TouchableOpacity
+                onPress={this.takePicture.bind(this)}
+                style = {styles.capture}
+            >
+                <Text style={{fontSize: 14}}> Pic </Text>
+            </TouchableOpacity>
+            </View>
+          </View>
+
+
+          
         )
     }
 }
@@ -188,20 +202,23 @@ export default connect<any,any>(mapStateToProps, mapDispatchToProps)(WorkOrderIm
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'row',
+      flex: 1,
+      flexDirection: 'column',
+      backgroundColor: 'black'
     },
     preview: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center'
+      flex: 1,
+      justifyContent: 'flex-end',
+      alignItems: 'center'
     },
     capture: {
-        flex: 0,
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        color: '#000',
-        padding: 10,
-        margin: 40
+      flex: 0,
+      backgroundColor: '#fff',
+      borderRadius: 5,
+      padding: 15,
+      paddingHorizontal: 20,
+      alignSelf: 'center',
+      margin: 20
     }
-})
+  });
+  

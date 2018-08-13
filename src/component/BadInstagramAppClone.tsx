@@ -6,11 +6,16 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Alert
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { PermissionsAndroid } from 'react-native';
-
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+//import * as cameraActions from '../actions/camera'
+import * as cameraActions from '../actions/actions'
+import {Body, Button, Container, Content, Header, Icon,  Title, Toast} from "native-base"
 
 export async function requestCameraPermission() {
     try {
@@ -97,7 +102,7 @@ export async function requestReadPermission() {
     }
   }
 
-export default class BadInstagramCloneApp extends Component {
+class BadInstagramCloneApp extends Component<AppProps> {
 
     
   render() {
@@ -106,6 +111,26 @@ export default class BadInstagramCloneApp extends Component {
     requestReadWritePermission()
 
     requestRecordAudio()
+
+    const { WORKORDER_UUID } = this.props;
+
+    if (WORKORDER_UUID == undefined){
+      return(
+          <Container>
+          <Header>
+              <Body>
+              <Title>CarSys Upload Image</Title>
+              </Body>
+          </Header>
+          <Content padder>
+          </Content>
+      </Container>
+        
+      )
+  }
+
+  else
+
 
     return (
       <View style={styles.container}>
@@ -140,10 +165,23 @@ export default class BadInstagramCloneApp extends Component {
   }
 
   takePicture = async function() {
+    
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options)
-      console.log(data.uri);
+      //const data = await this.camera.takePictureAsync(options)
+      //console.log(data.uri);
+
+
+      this.camera.takePictureAsync(options)
+      .then((data) => {
+          let UploadData = {category: 'employee-images',dataPath:data.uri,UUID:this.props.WORKORDER_UUID}
+         this.props.actions.UploadImage(UploadData)
+         //this.props.actions.UploadImage(UploadData)
+
+         
+      })
+      .catch(err => console.error(err));
+
     }
   };
 
@@ -161,6 +199,36 @@ export default class BadInstagramCloneApp extends Component {
     }
   };
 }
+
+
+
+interface IMapStateToProps {
+  WORKORDER_UUID: string,
+
+}
+
+type MapDispatchToProps = {
+  actions: {
+      UploadImage: typeof cameraActions.UploadImage
+  }
+}
+
+const mapStateToProps = state => {
+  
+  return {
+      WORKORDER_UUID: state.mobilereducer.WORKORDER_UUID
+  }
+}
+
+
+const mapDispatchToProps = dispatch => {
+  return {actions: bindActionCreators(cameraActions,dispatch)}
+  
+}
+
+type AppProps =
+& IMapStateToProps
+& MapDispatchToProps
 
 const styles = StyleSheet.create({
   container: {
@@ -185,3 +253,5 @@ const styles = StyleSheet.create({
 });
 
 AppRegistry.registerComponent('BadInstagramCloneApp', () => BadInstagramCloneApp);
+
+export default connect<any,any>(mapStateToProps, mapDispatchToProps)(BadInstagramCloneApp)

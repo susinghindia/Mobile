@@ -1,7 +1,7 @@
 import axios from 'axios'
 import forEach from 'lodash/forEach'
 import St from '../helpers/storage'
-import RNFetchBlob from "react-native-fetch-blob"
+//import RNFetchBlob from "react-native-fetch-blob"
 
 /**
  * Build the base URL
@@ -183,21 +183,75 @@ export async function request (_method = 'GET', _url = '',APISource='', _config 
 
 
 
-export async function uploadImage (category, PicturePath, _config = {}) {
+// export async function uploadImage (category, PicturePath, _config = {}) {
+
+// //'file:///data/user/0/com.mobile/cache/Camera/60b9d3de-491a-4685-a20e-d96eeaba1978.jpg'
+//     PicturePath = 'file://data/user/0/com.mobile/cache/Camera/60b9d3de-491a-4685-a20e-d96eeaba1978.jpg'
+//     const headers = await _buildHeaders(_config.headers)
+
+//     return RNFetchBlob.fetch('POST', 'http://192.168.0.142:9000/media/private/employee-images', {
+//         Authorization : headers,
+//         'Content-Type' : 'multipart/form-data',
+//        },
+//          RNFetchBlob.wrap(PicturePath)
+//     ).then((res) => {
+//         console.log(res.text())
+//     })
+//     .catch((err) => {
+//         console.log('axios')
+//         console.log(PicturePath)
+        
+//         console.log(err)
+//         console.log('axios-end')
+//     })
+// }
 
 
-    const headers = await _buildHeaders(_config.headers)
+export async function uploadImage_2 (category, PicturePath, _config = {}) {
+    console.log(PicturePath);
+    let apiHeaders = await St.get('auth')
+    apiHeaders = JSON.parse(apiHeaders)
+    if (PicturePath) {
+      // Create the form data object
+      var data = new FormData();
+      data.append('picture', {
+        uri: PicturePath,
+        name: 'selfie.jpg',
+        type: 'image/jpg'
+      });
 
-    return RNFetchBlob.fetch('POST', 'http://192.168.0.142:9000/modules/media/private/employee-images', {
-        Authorization : headers,
-    }, RNFetchBlob.wrap(PicturePath))
-        .then((res) => {
-        console.log(res.text())
-    })
-    .catch((err) => {
-    // error handling ..
-    })
-}
+      console.log('data-start')
+  console.log(data)
+  console.log('data-end')
+      // Create the config object for the POST
+      // You typically have an OAuth2 token that you use for authentication
+      const config = {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'multipart/form-data;',
+          Authorization: apiHeaders.Data.AuthenticationResult.TokenType +" " +apiHeaders.Data.AuthenticationResult.IdToken
+        },
+        body: data
+      };
+  
+     return fetch('http://192.168.0.142:9000/media/private/employee-images/test_2.jpg', config)
+        .then(responseData => {
+          // Log the response form the server
+          // Here we get what we sent to Postman back
+          console.log('responseData-starts')
+          console.log(responseData);
+          console.log('responseData-end')
+        })
+        .catch(err => {
+            console.log('uploadImage_2-error')
+          console.log(err);
+          console.log('uploadImage_2-error-nd')
+        });
+    }
+  }
+
+
 
 /**
  * Axios Interceptor
