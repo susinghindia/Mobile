@@ -43,7 +43,7 @@ class GMSAPI {
            // Set authentication
            return  hStorage.set('auth', _results.data).then(() => {
                // Get current user
-               return    http.request('GET', 'modules/admin/user/'+'surjit.kumar+gmsNew@gmail.com','SSO')
+               return    http.request('GET', 'modules/admin/user/'+'surjit.kumar+gmsmobile@gmail.com','SSO')
                    .then((result) => {
                        let data = result.data.Data
                        console.log(data)
@@ -75,62 +75,13 @@ class GMSAPI {
         }
 
 
-        static uploadImage_Post(data){
 
-           const config= {
-              
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                body: data.base64Data
-            }
-        
-            return    http.request('POST', '/media/private/employee-images/test_00006.jpg','GMS',config)
-                .then((result) => {
-                    let data = result.data.Data
-                    console.log(data)
-                    return result.data.Data
-                })
-                .catch((error) => {
-                    return error
-                })
-            
+    static uploadWorkOrderImage( data){
     
-    
-               
-            }
-    
-    
-    static uploadImage_RN(data){
-            //requestCameraPermission()
-
-            console.log(data)
-
-            
-            return    http.uploadImage_RN(data.base64Data,data.dataPath)
-                .then((result) => {
-                    let data = result.data.Data
-                    console.log(data)
-                    return result.data.Data
-                })
-                .catch((error) => {
-                    return error
-                })
-            
-    
-    
-               
-            }
-
-
-            
-    static uploadImage_2(data){
-        //requestCameraPermission()
-
-        console.log(data)
-
-        
-        return    http.uploadImage_2(data.category,data.dataPath)
+        const uriParts = data.dataPath.split('/');
+        const fileName = uriParts[uriParts.length - 1];
+                
+        return    http.uploadWorkOrderImage(data.category,data.UUID,data.base64Data,fileName)
             .then((result) => {
                 let data = result.data.Data
                 console.log(data)
@@ -139,34 +90,13 @@ class GMSAPI {
             .catch((error) => {
                 return error
             })
-        
 
-
-           
+            
         }
+    
 
 
-        
-        static uploadImage_FormData(data){
-            //requestCameraPermission()
-    
-            console.log(data)
-    
-            
-            return    http.uploadImage_FormData(data.category,data.dataPath)
-                .then((result) => {
-                    let data = result.data.Data
-                    console.log(data)
-                    return result.data.Data
-                })
-                .catch((error) => {
-                    return error
-                })
-            
-    
-    
-               
-            }
+             
           
   
 }

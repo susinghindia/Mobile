@@ -177,7 +177,7 @@ class BadInstagramCloneApp extends Component<AppProps> {
         console.log('data-camera')
         console.log(data)
         console.log('data-camera-end')
-          let UploadData = {category: 'employee-images',dataPath:data.uri,UUID:this.props.WORKORDER_UUID,base64Data:data.base64}
+          let UploadData = {category: 'workorder-images',dataPath:data.uri,UUID:this.props.WORKORDER_UUID,base64Data:data.base64}
          this.props.actions.UploadImage(UploadData)
          //this.props.actions.UploadImage(UploadData)
 

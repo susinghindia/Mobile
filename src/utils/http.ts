@@ -182,125 +182,29 @@ export async function request (_method = 'GET', _url = '',APISource='', _config 
 }
 
 
-
-export async function uploadImage_RN (base64ImageString, PicturePath, _config = {}) {
-
-//'file:///data/user/0/com.mobile/cache/Camera/60b9d3de-491a-4685-a20e-d96eeaba1978.jpg'
-   // PicturePath = 'file://data/user/0/com.mobile/cache/Camera/60b9d3de-491a-4685-a20e-d96eeaba1978.jpg'
-    const headers = await _buildHeaders(_config.headers)
-
-    let apiHeaders = await St.get('auth')
-    apiHeaders = JSON.parse(apiHeaders)
-
-    return RNFetchBlob.fetch('POST', 'http://192.168.0.142:9000/media/private/employee-images/sstest_16.jpg', {
-        Authorization : apiHeaders.Data.AuthenticationResult.TokenType +" " +apiHeaders.Data.AuthenticationResult.IdToken,
-        'Content-Type' : 'application/octet-stream',
-        //'Content-Type' : 'application/octet-stream;',
-       
-       }, base64ImageString
-      
-    ).then((res) => {
-        console.log(res.text())
-    })
-    .catch((err) => {
-        console.log('axios')
-        console.log(PicturePath)
+export async function uploadWorkOrderImage (Category, WorkorderUUID, base64ImageString,fileName) {
+    
+        let apiHeaders = await St.get('auth')
+        apiHeaders = JSON.parse(apiHeaders)
         
-        console.log(err)
-        console.log('axios-end')
-    })
-}
+        //const URL = 'http://192.168.0.142:9000/media/private/'+ Category + '/' + WorkorderUUID +'/' + fileName
 
+        const URL = _buildBaseUrl_GMS() +'/media/private/'+ Category + '/' + WorkorderUUID +'/' + fileName
 
-
-
-export async function uploadImage_3 (category, PicturePath, _config = {}) {
-    console.log(PicturePath);
-    let apiHeaders = await St.get('auth')
-    apiHeaders = JSON.parse(apiHeaders)
-
-    const uriParts = PicturePath.split('.');
-    const fileType = uriParts[uriParts.length - 1];
-
-    if (PicturePath) {
-      // Create the form data object
-      var data = new FormData();
-      data.append('picture', {
-        uri: PicturePath,
- //       name: 'test_2.jpg',
-        //type: 'image/jpg',
-        type: `application/${fileType}`,
-      });
-
-      const config = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data;',
-          //'Content-Type': 'image/jpg;',
-          Authorization: apiHeaders.Data.AuthenticationResult.TokenType +" " +apiHeaders.Data.AuthenticationResult.IdToken
-        },
-        body:  data
-      };
-  
-     return fetch('http://192.168.0.142/media/private/employee-images/test_16.jpg', config)
-        .then(responseData => {
-    
-          console.log('responseData-starts')
-          console.log(responseData);
-          console.log('responseData-end')
+        return RNFetchBlob.fetch('POST', URL, {
+            Authorization : apiHeaders.Data.AuthenticationResult.TokenType +" " +apiHeaders.Data.AuthenticationResult.IdToken,
+            'Content-Type' : 'application/octet-stream',
+           }, base64ImageString
+        ).then((res) => {
+            console.log(res.text())
         })
-        .catch(err => {
-            console.log('uploadImage_2-error')
-          console.log(err);
-          console.log('uploadImage_2-error-nd')
-        });
-    }
-  }
-
-export async function uploadImage_FormData (category, PicturePath, _config = {}) {
-    console.log(PicturePath);
-    let apiHeaders = await St.get('auth')
-    apiHeaders = JSON.parse(apiHeaders)
-
-    const uriParts = PicturePath.split('.');
-    const fileType = uriParts[uriParts.length - 1];
-
-    if (PicturePath) {
-      // Create the form data object
-      var data = new FormData();
-      data.append('picture', {
-        uri: PicturePath,
- //       name: 'test_2.jpg',
-        type: 'image/jpg',
-      //  type: `application/${fileType}`,
-      });
-
-      const config = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data;',
-          //'Content-Type': 'image/jpg;',
-          Authorization: apiHeaders.Data.AuthenticationResult.TokenType +" " +apiHeaders.Data.AuthenticationResult.IdToken
-        },
-        body: data
-      };
-  
-     return fetch('http://192.168.0.142:9000/media/private/employee-images/test_6.jpg', config)
-        .then(responseData => {
-    
-          console.log('responseData-starts')
-          console.log(responseData);
-          console.log('responseData-end')
+        .catch((err) => {
+            console.log('axios')
+            console.log(err)
+            console.log('axios-end')
         })
-        .catch(err => {
-            console.log('uploadImage_2-error')
-          console.log(err);
-          console.log('uploadImage_2-error-nd')
-        });
     }
-  }
-
+    
 
 
 /**
