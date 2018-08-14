@@ -1,5 +1,5 @@
 export default {
     Company_name: 'CarSys',
-    Email: 'surjit.kumar+gmsNew@gmail.com',
+    Email: 'surjit.kumar+gmsmobile@gmail.com',
     Password:  'P@ssw0rd'
   }

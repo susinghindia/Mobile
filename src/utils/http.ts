@@ -10,8 +10,8 @@ import RNFetchBlob from "react-native-fetch-blob"
  */
 
  const _buildBaseUrl = () => {
- //   return 'http://192.168.0.142:9100'
-   return 'http://192.168.43.205:9100'
+    return 'http://192.168.0.142:9100'
+   //return 'http://192.168.43.205:9100'
 
      /*    const CLIENT = St.get('client')
          const API = St.get('xdata')
@@ -19,8 +19,8 @@ import RNFetchBlob from "react-native-fetch-blob"
  }
  
  const _buildBaseUrl_GMS = () => {
-  // return 'http://192.168.0.142:9000'
-   return 'http://192.168.43.205:9000'
+   return 'http://192.168.0.142:9000'
+ //  return 'http://192.168.43.205:9000'
 }
 
 /**
@@ -183,26 +183,22 @@ export async function request (_method = 'GET', _url = '',APISource='', _config 
 
 
 
-export async function uploadImage_RN (category, PicturePath, _config = {}) {
+export async function uploadImage_RN (base64ImageString, PicturePath, _config = {}) {
 
 //'file:///data/user/0/com.mobile/cache/Camera/60b9d3de-491a-4685-a20e-d96eeaba1978.jpg'
    // PicturePath = 'file://data/user/0/com.mobile/cache/Camera/60b9d3de-491a-4685-a20e-d96eeaba1978.jpg'
     const headers = await _buildHeaders(_config.headers)
 
-    return RNFetchBlob.fetch('POST', 'http://192.168.43.205:9000/media/private/employee-images/sstest_16.jpg', {
-        Authorization : headers,
-        'Content-Type' : 'multipart/form-data',
-       },
-         //RNFetchBlob.wrap(PicturePath)
+    let apiHeaders = await St.get('auth')
+    apiHeaders = JSON.parse(apiHeaders)
 
-         [
-            {
-                name: 'file.jpg',
-                filename: 'file.jpg',
-                type: 'image/jpg',
-                data: RNFetchBlob.wrap(this.state.selectedVideo[0].uri)
-            }
-        ]
+    return RNFetchBlob.fetch('POST', 'http://192.168.0.142:9000/media/private/employee-images/sstest_16.jpg', {
+        Authorization : apiHeaders.Data.AuthenticationResult.TokenType +" " +apiHeaders.Data.AuthenticationResult.IdToken,
+        'Content-Type' : 'application/octet-stream',
+        //'Content-Type' : 'application/octet-stream;',
+       
+       }, base64ImageString
+      
     ).then((res) => {
         console.log(res.text())
     })
@@ -246,7 +242,7 @@ export async function uploadImage_3 (category, PicturePath, _config = {}) {
         body:  data
       };
   
-     return fetch('http://192.168.43.205/media/private/employee-images/test_16.jpg', config)
+     return fetch('http://192.168.0.142/media/private/employee-images/test_16.jpg', config)
         .then(responseData => {
     
           console.log('responseData-starts')
@@ -261,7 +257,7 @@ export async function uploadImage_3 (category, PicturePath, _config = {}) {
     }
   }
 
-export async function uploadImage_2 (category, PicturePath, _config = {}) {
+export async function uploadImage_FormData (category, PicturePath, _config = {}) {
     console.log(PicturePath);
     let apiHeaders = await St.get('auth')
     apiHeaders = JSON.parse(apiHeaders)
@@ -275,8 +271,8 @@ export async function uploadImage_2 (category, PicturePath, _config = {}) {
       data.append('picture', {
         uri: PicturePath,
  //       name: 'test_2.jpg',
-        //type: 'image/jpg',
-        type: `application/${fileType}`,
+        type: 'image/jpg',
+      //  type: `application/${fileType}`,
       });
 
       const config = {

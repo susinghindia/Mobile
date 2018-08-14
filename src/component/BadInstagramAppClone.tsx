@@ -146,12 +146,12 @@ class BadInstagramCloneApp extends Component<AppProps> {
            
         />
         <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center',}}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
             onPress={this.takeVideo.bind(this)}
             style = {styles.capture}
         >
             <Text style={{fontSize: 14}}> Video </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
         <TouchableOpacity
             onPress={this.takePicture.bind(this)}

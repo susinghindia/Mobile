@@ -91,7 +91,7 @@ function* Navigation(action) {
 function* UploadImage(action) {
   try {
     //  alert(action.UserCredential.UserName + " : a" + action.UserCredential.Password)
-     var data = yield GMSAPI.uploadImage(action.data)
+     var data = yield GMSAPI.uploadImage_RN(action.data)
      yield put({type: actiontypes.UPLOAD_IMAGE_SUCCESS,data})
      //yield put({type: actiontypes.LOGIN_VALIDATE,data})
   } catch (error) {

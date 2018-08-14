@@ -101,13 +101,13 @@ class GMSAPI {
             }
     
     
-    static uploadImage(data){
+    static uploadImage_RN(data){
             //requestCameraPermission()
 
             console.log(data)
 
             
-            return    http.uploadImage_RN(data.category,data.dataPath)
+            return    http.uploadImage_RN(data.base64Data,data.dataPath)
                 .then((result) => {
                     let data = result.data.Data
                     console.log(data)
@@ -147,13 +147,13 @@ class GMSAPI {
 
 
         
-        static uploadImage_3(data){
+        static uploadImage_FormData(data){
             //requestCameraPermission()
     
             console.log(data)
     
             
-            return    http.uploadImage_3(data.category,data.dataPath)
+            return    http.uploadImage_FormData(data.category,data.dataPath)
                 .then((result) => {
                     let data = result.data.Data
                     console.log(data)
