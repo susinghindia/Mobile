@@ -207,6 +207,30 @@ export async function uploadWorkOrderImage (Category, WorkorderUUID, base64Image
     
 
 
+    
+export async function uploadWorkOrderVideo (Category, WorkorderUUID, PATH_TO_THE_FILE,fileName) {
+    
+    let apiHeaders = await St.get('auth')
+    apiHeaders = JSON.parse(apiHeaders)
+    
+    //const URL = 'http://192.168.0.142:9000/media/private/'+ Category + '/' + WorkorderUUID +'/' + fileName
+
+    const URL = _buildBaseUrl_GMS() +'/media/private/'+ Category + '/' + WorkorderUUID +'/' + fileName
+
+    return RNFetchBlob.fetch('POST', URL, {
+        Authorization : apiHeaders.Data.AuthenticationResult.TokenType +" " +apiHeaders.Data.AuthenticationResult.IdToken,
+        'Content-Type' : 'application/octet-stream',
+       }, RNFetchBlob.wrap(PATH_TO_THE_FILE)
+    ).then((res) => {
+        console.log(res.text())
+    })
+    .catch((err) => {
+        console.log('axios')
+        console.log(err)
+        console.log('axios-end')
+    })
+}
+
 /**
  * Axios Interceptor
  */

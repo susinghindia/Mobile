@@ -203,9 +203,17 @@ class CaptureImages extends Component<AppProps> {
   takeVideo = async function() {
     if (this.camera) {
       const options = { maxDuration:5, quality:RNCamera.Constants.VideoQuality['480p']};
-      const record = await this.camera.recordAsync(options);
+   //   const record = await this.camera.recordAsync(options);
      // const record = await this.camera.recordAsync(RNCamera.Constants.VideoQuality["2160p"]);
-      console.log(record);
+     // console.log(record);
+
+     this.camera.recordAsync(options)
+     .then((data) => {
+        let UploadData = {category: 'workorder-images',dataPath:data.uri,UUID:this.props.WORKORDER_UUID,base64Data:data.base64}
+        this.props.actions.UploadVideo(UploadData)
+        
+     })
+     .catch(err => console.error(err));
     }
   };
 
@@ -227,7 +235,8 @@ interface IMapStateToProps {
 type MapDispatchToProps = {
   actions: {
       UploadImage: typeof cameraActions.UploadImage,
-      Navigation: typeof DashBoardActiosn.Navigation
+      Navigation: typeof DashBoardActiosn.Navigation,
+      UploadVideo: typeof cameraActions.UploadVideo
   }
 }
 

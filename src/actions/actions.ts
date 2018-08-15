@@ -42,6 +42,14 @@ export function loginfailed() {
     return {type: actiontypes.UPLOAD_IMAGE,data};
   }
 
+  
+  export function UploadVideo(data) {
+    return {type: actiontypes.UPLOAD_VIDEO,data};
+  }
+
+
+  
+
 
   
 

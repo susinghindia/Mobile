@@ -13,6 +13,7 @@ export function *watchAll() {
     takeLatest(actiontypes.GET_WORKORDERS, GMSGetWorkOrders),
     takeLatest(actiontypes.NAVIGATION, Navigation),
     takeLatest(actiontypes.UPLOAD_IMAGE, UploadImage),
+    takeLatest(actiontypes.UPLOAD_VIDEO, UploadVideo),
     
   ]);
 }
@@ -99,4 +100,18 @@ function* UploadImage(action) {
   }
 }
 
+
+
+function* UploadVideo(action) {
+  try {
+    
+     var data = yield GMSAPI.uploadWorkOrderVideo(action.data)
+     yield put({type: actiontypes.UPLOAD_IMAGE_SUCCESS,data})
+    
+  } catch (error) {
+     
+     yield put({type: actiontypes.LOGIN_FAILED})
+     
+  }
+}
 

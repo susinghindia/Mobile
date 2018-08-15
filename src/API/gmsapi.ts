@@ -92,6 +92,25 @@ class GMSAPI {
 
             
         }
+
+        
+    static uploadWorkOrderVideo( data){
+    
+        const uriParts = data.dataPath.split('/');
+        const fileName = uriParts[uriParts.length - 1];
+                
+        return    http.uploadWorkOrderVideo(data.category,data.UUID,data.dataPath,fileName)
+            .then((result) => {
+                let data = result.data.Data
+                console.log(data)
+                return result.data.Data
+            })
+            .catch((error) => {
+                return error
+            })
+
+            
+        }
     
 
 
