@@ -102,7 +102,7 @@ export async function requestReadPermission() {
     }
   }
 
-class BadInstagramCloneApp extends Component<AppProps> {
+class CaptureImages extends Component<AppProps> {
 
     
   render() {
@@ -260,6 +260,6 @@ const styles = StyleSheet.create({
  
 });
 
-AppRegistry.registerComponent('BadInstagramCloneApp', () => BadInstagramCloneApp);
+AppRegistry.registerComponent('CaptureImages', () => CaptureImages);
 
-export default connect<any,any>(mapStateToProps, mapDispatchToProps)(BadInstagramCloneApp)
+export default connect<any,any>(mapStateToProps, mapDispatchToProps)(CaptureImages)

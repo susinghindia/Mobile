@@ -12,6 +12,7 @@ import DashBoard from "./src/component/DashBoard"
 import WorkOrderImage from "./src/component/WorkOrderImage"
 import WorkOrderVideo from "./src/component/WorkOrderVideo"
 import BadInstagramCloneApp from "./src/component/BadInstagramAppClone"
+import CaptureImages from "./src/component/BadInstagramAppClone"
 
 
 import { store} from './src/store/configurestore'
@@ -31,7 +32,7 @@ export const history = createHistory()
                     <Switch>
                         <Route exact path='/' component={Login}/>
                         <Route exact path='/image' component={WorkOrderImage}/>
-                        <Route exact path='/video' component={BadInstagramCloneApp}/>
+                        <Route exact path='/video' component={CaptureImages}/>
                         
                         <Route exact path='/dashboard' component={DashBoard}/>
                     

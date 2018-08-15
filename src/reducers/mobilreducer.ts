@@ -37,8 +37,11 @@ export default function mobilreducer(state = initialState, action) {
     case types.SET_WORKORDER_UUID:
     {
 
+      console.log('action-set')
+      console.log(action)
       return Object.assign({}, state, {
-        WORKORDER_UUID : action.UUID
+        WORKORDER_UUID : action.data.UUID,
+        WORKORDER_ID : action.data.ID
       }); 
     }
     

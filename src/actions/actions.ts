@@ -27,8 +27,8 @@ export function loginfailed() {
     return {type: actiontypes.GET_WORKORDERS};
   }
 
-  export function SetWorkOrderUUID(UUID) {
-    return {type: actiontypes.SET_WORKORDER_UUID,UUID};
+  export function SetWorkOrderUUID(data) {
+    return {type: actiontypes.SET_WORKORDER_UUID,data};
   }
 
   
