@@ -20,10 +20,8 @@ export function *watchAll() {
 
 function* GMSlogin(action) {
     try {
-      //  alert(action.UserCredential.UserName + " : a" + action.UserCredential.Password)
        var data = yield GMSAPI.GMSLogin(action)
        yield put({type: actiontypes.LOGIN_SUCCESS,data})
-       //yield put({type: actiontypes.LOGIN_VALIDATE,data})
     } catch (error) {
        
        yield put({type: actiontypes.LOGIN_FAILED})
@@ -78,7 +76,7 @@ function* GMSGetWorkOrders() {
 function* Navigation(action) {
   try {
    
-    yield call(history.push, '/video')
+    yield call(history.push, '/' + action.data.RoutePath)
   } catch (error) {
      
      yield put({type: actiontypes.LOGIN_FAILED})
@@ -90,10 +88,10 @@ function* Navigation(action) {
 
 function* UploadImage(action) {
   try {
-    //  alert(action.UserCredential.UserName + " : a" + action.UserCredential.Password)
+    
      var data = yield GMSAPI.uploadWorkOrderImage(action.data)
      yield put({type: actiontypes.UPLOAD_IMAGE_SUCCESS,data})
-     //yield put({type: actiontypes.LOGIN_VALIDATE,data})
+    
   } catch (error) {
      
      yield put({type: actiontypes.LOGIN_FAILED})

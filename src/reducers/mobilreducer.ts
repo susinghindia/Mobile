@@ -7,14 +7,18 @@ export default function mobilreducer(state = initialState, action) {
 
     case types.LOGIN_SUCCESS:
     {
-     return  state
+      return Object.assign({}, state, {
+        LoginSuccess : 1
+        }); 
      
     }
 
     case types.LOGIN_FAILED:
     {
-     // alert('failed')
-     return  state
+     
+     return Object.assign({}, state, {
+      LoginSuccess : 0
+      }); 
     }
 
 
@@ -37,8 +41,7 @@ export default function mobilreducer(state = initialState, action) {
     case types.SET_WORKORDER_UUID:
     {
 
-      console.log('action-set')
-      console.log(action)
+     
       return Object.assign({}, state, {
         WORKORDER_UUID : action.data.UUID,
         WORKORDER_ID : action.data.ID

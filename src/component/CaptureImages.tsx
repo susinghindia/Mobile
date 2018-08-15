@@ -16,6 +16,7 @@ import {bindActionCreators} from "redux";
 //import * as cameraActions from '../actions/camera'
 import * as cameraActions from '../actions/actions'
 import {Body, Button, Container, Content, Header, Icon,  Title, Toast} from "native-base"
+import * as DashBoardActiosn from '../actions/actions'
 
 export async function requestCameraPermission() {
     try {
@@ -163,6 +164,13 @@ class CaptureImages extends Component<AppProps> {
             <Text style={{fontSize: 14}}> Video </Text>
         </TouchableOpacity> */}
 
+         <TouchableOpacity
+            onPress={() => this.ViewDashBoard()}
+            style = {styles.capture}
+        >
+            <Text style={{fontSize: 14}}> Go back </Text>
+        </TouchableOpacity>
+
         <TouchableOpacity
             onPress={this.takePicture.bind(this)}
             style = {styles.capture}
@@ -195,12 +203,17 @@ class CaptureImages extends Component<AppProps> {
   takeVideo = async function() {
     if (this.camera) {
       const options = { maxDuration:5, quality:RNCamera.Constants.VideoQuality['480p']};
-      //const data = await this.camera.takePictureAsync(options)
       const record = await this.camera.recordAsync(options);
      // const record = await this.camera.recordAsync(RNCamera.Constants.VideoQuality["2160p"]);
-      console.log(record.uri);
+      console.log(record);
     }
   };
+
+
+  ViewDashBoard()  {
+    let navdata ={RoutePath:'dashboard'}
+    this.props.actions.Navigation(navdata);
+  }
 }
 
 
@@ -213,7 +226,8 @@ interface IMapStateToProps {
 
 type MapDispatchToProps = {
   actions: {
-      UploadImage: typeof cameraActions.UploadImage
+      UploadImage: typeof cameraActions.UploadImage,
+      Navigation: typeof DashBoardActiosn.Navigation
   }
 }
 
@@ -228,7 +242,9 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps = dispatch => {
-  return {actions: bindActionCreators(cameraActions,dispatch)}
+  //return {actions: bindActionCreators(cameraActions,dispatch)}
+  return {actions: bindActionCreators({ ...cameraActions, ...DashBoardActiosn }, dispatch)}
+  
   
 }
 

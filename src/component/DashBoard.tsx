@@ -66,20 +66,15 @@ const mapStateToProps = state => {
 
     class DashBoard extends  React.Component<AppProps> {
 
-        // addImageToWorkOrder = (UUID) => {
-            
-        //     alert(1)
-        //     this.props.actions.Navigation("Hello");
-        //         };
-
 
         addImageToWorkOrder(WorkOrder_UUID,WorkOrder_ID)  {
-            
-          //  alert(UUID)
-         let data = {UUID: WorkOrder_UUID,ID: WorkOrder_ID}
-          this.props.actions.SetWorkOrderUUID(data);
-            this.props.actions.Navigation(WorkOrder_UUID);
-                };
+
+            let data = {UUID: WorkOrder_UUID,ID: WorkOrder_ID}
+            let navdata ={RoutePath:'image'}
+
+            this.props.actions.SetWorkOrderUUID(data);
+            this.props.actions.Navigation(navdata);
+        }
 
         getWorkOrders = () => {
          
@@ -124,31 +119,33 @@ const mapStateToProps = state => {
                    
                     {/* <Button block primary onPress={this.getWorkOrders}style={{marginTop: 10, marginBottom: 10}}><Text>Work Orders</Text></Button> */}
                     <ScrollView>
-                    {WorkOrders!=undefined  &&       WorkOrders[0]!=undefined &&            <FlatList
-                        data={WorkOrders}
-                        renderItem={({item}) => (
-                            <View style={styles.itemContainer}>
-                              
-                             <View   style={{ flexDirection: 'row', height: 90, padding: 20, }}>
-
-                                <View style={{backgroundColor: 'rgb(255,207,0)', flex: 0.5,borderRadius:10,borderColor:'rgb(0,0,0)',borderWidth:1,alignItems:'center'}} >
+                        {WorkOrders!=undefined  &&       WorkOrders[0]!=undefined &&            
+                        
+                        <FlatList
+                            data={WorkOrders}
+                            renderItem={({item}) => (
+                                <View style={styles.itemContainer}>
                                 
-                                    <Text>{item.Vehicle.Registration}</Text>
-                                    <Text>{item.Workorder.ID}</Text>
+                                <View   style={{ flexDirection: 'row', height: 90, padding: 20, }}>
 
-                                   
+                                    <View style={{backgroundColor: 'rgb(255,207,0)', flex: 0.5,borderRadius:10,borderColor:'rgb(0,0,0)',borderWidth:1,alignItems:'center'}} >
+                                    
+                                        <Text>{item.Vehicle.Registration}</Text>
+                                        <Text>{item.Workorder.ID}</Text>
 
+                                    
+
+                                    </View>
+                                    <View style={{flex: 0.2}} >
+                                        <TouchableOpacity   onPress={() => this.addImageToWorkOrder(item.Workorder.UUID, item.Workorder.ID)}    >
+                                        <Icon name='camera'/>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
-                                <View style={{flex: 0.2}} >
-                                    <TouchableOpacity   onPress={() => this.addImageToWorkOrder(item.Workorder.UUID, item.Workorder.ID)}    >
-                                    <Icon name='camera'/>
-                                    </TouchableOpacity>
                                 </View>
-                            </View>
-                            </View>
-                        )}
-                        keyExtractor={item => item.Vehicle.UUID}
-                        numColumns={numColumns} />}
+                            )}
+                            keyExtractor={item => item.Workorder.UUID}
+                            numColumns={numColumns} />}
                     </ScrollView>
                     </Content>
                 </Container>

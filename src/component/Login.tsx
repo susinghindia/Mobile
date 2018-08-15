@@ -1,38 +1,17 @@
 import React, {Component} from 'react'
-import {
-    Body,
-    Button,
-    Card,
-    CardItem,
-    CheckBox,
-    Container,
-    Content,
-    Form,
-    Header,
-    Input,
-    Item,
-    Label,
-    Left,
-    ListItem,
-    Right,
-    Text,
-    Title,
-    
-} from "native-base";
-
+import {Body,Button,Card,CardItem,CheckBox,Container,Content,Form,Header,Input,Item,Label, Left, ListItem, Right, Text, Title} from "native-base";
 import { View, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
-
 import {Field, reduxForm} from "redux-form"
 import {connect} from "react-redux"
 import {bindActionCreators} from "redux"
-
 import * as loginActions from '../actions/actions'
 
 
 interface IMapStateToProps {
     Company_name: string,
     Email: string,
-    Password: string
+    Password: string,
+    LoginSuccess: number
   
   }
 
@@ -46,7 +25,7 @@ type MapDispatchToProps = {
 interface State {
     companyname: string;
     email: string;
-    password:String;
+    password:string;
 
   }
 
@@ -66,7 +45,12 @@ class login extends  React.Component<AppProps,State> {
         };
       }
    
-      handleEmailChange = (e) => {
+    // handleEmailChange = (e) => {
+      
+    //     this.setState({email: e.target.value});
+    // }
+
+    handleEmailChange (e) {
       
         this.setState({email: e.target.value});
     }
@@ -91,7 +75,7 @@ class login extends  React.Component<AppProps,State> {
    
     render() {
         //const { userlogin } = this.props.actions
-        const { Company_name, Email, Password } = this.props;
+        const { Company_name, Email, Password,LoginSuccess } = this.props;
 
         let Companyname = {Company_name} 
 
@@ -117,17 +101,19 @@ class login extends  React.Component<AppProps,State> {
             <Container>
                 <Header>
                     <Body>
-                    <Title>CarSys Login</Title>
+                    <Title>CarSys Login {LoginSuccess ==0 &&   '-- Failed !!' }</Title>
+                    
+                       
                     </Body>
                 </Header>
                 <Content padder>
             
             
-            <TextInput type="text" name="Company" placeholder="Company" value={this.state.companyname} onChange={this.handleCompanyChange} />
+            <TextInput   placeholder="Company" value={this.state.companyname} onChangeText={(text) => this.setState({companyname: text})}/>
 
-            <TextInput type="text" name="Email" placeholder="Email" value={this.state.email} onChange={this.handleEmailChange} />
+            <TextInput placeholder="Email" value={this.state.email}  onChangeText={(text) => this.setState({email: text})} />
 
-            <TextInput type="text" name="Password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
+            <TextInput secureTextEntry placeholder="Password" value={this.state.password} onChangeText={(text) => this.setState({password: text})} />
          
            
             {/* <Button block primary onPress={this.handleLogin} style={{marginTop: 10, marginBottom: 10}}><Text>Log in</Text></Button> */}
@@ -142,6 +128,9 @@ class login extends  React.Component<AppProps,State> {
                         <Text>
                             Use your online login credentials to use the CarSys app.
                         </Text>
+
+                       
+
                         </Body>
                     </CardItem>
                 </Card>
@@ -159,7 +148,8 @@ const mapStateToProps = state => {
     return {
         Company_name: state.mobilereducer.Company_name,
         Email: state.mobilereducer.Email,
-        Password: state.mobilereducer.Password
+        Password: state.mobilereducer.Password,
+        LoginSuccess: state.mobilereducer.LoginSuccess
     }
   }
 

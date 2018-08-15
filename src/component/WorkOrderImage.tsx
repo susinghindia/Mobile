@@ -120,8 +120,6 @@ class WorkOrderImage extends React.Component <AppProps> {
        
         const options = {};
       
-       // alert(this.props.WORKORDER_UUID)
-        //options.location = ...
         this.camera.capture({metadata: options})
             .then((data) => {
                 let UploadData = {category: 'employee-images',dataPath:data.path,UUID:this.props.WORKORDER_UUID}

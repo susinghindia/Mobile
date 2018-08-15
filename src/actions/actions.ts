@@ -32,8 +32,8 @@ export function loginfailed() {
   }
 
   
-  export function Navigation(UUID) {
-    return {type: actiontypes.NAVIGATION,UUID};
+  export function Navigation(data) {
+    return {type: actiontypes.NAVIGATION,data};
   }
 
 

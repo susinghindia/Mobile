@@ -19,9 +19,8 @@ class GMSAPI {
     static GMSLogin(action){
 
        const body = {"Password": action.UserCredential.Password,	"EmailAddress": action.UserCredential.UserName};
-       //alert( action.UserCredential.Password + " : " +  action.UserCredential.UserName)
        //const body = {"Password": "P@ssw0rd",	"Email": "surjit.kumar+gmsNew@gmail.co"};
-       //return  hStorage.set('client', 'sso').then(() => { 
+       
 
        return http.authRequest('POST', 'modules/auth/login', {
             body
@@ -46,7 +45,7 @@ class GMSAPI {
                return    http.request('GET', 'modules/admin/user/'+'surjit.kumar+gmsmobile@gmail.com','SSO')
                    .then((result) => {
                        let data = result.data.Data
-                       console.log(data)
+                       
                        return result.data.Data
                    })
                    .catch((error) => {
