@@ -20,7 +20,7 @@ import RNFetchBlob from "react-native-fetch-blob"
  
  const _buildBaseUrl_GMS = () => {
    return 'http://192.168.0.142:9000'
-   //return 'http://192.168.43.205:9000'
+  // return 'http://192.168.43.205:9000'
 }
 
 /**

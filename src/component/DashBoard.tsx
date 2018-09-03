@@ -5,9 +5,7 @@ import * as DashBoardActiosn from '../actions/actions'
 import {Body, Button, Card, CardItem, CheckBox, Container, Content, Form, Header, Input, Item, Label, Left, ListItem, Right, Text, Title,Icon} from "native-base";
 import { View, TouchableOpacity, TextInput, StyleSheet,FlatList ,Dimensions,ScrollView} from 'react-native'
 import {connect} from "react-redux"
-import LicensePlate from './licenseplate'
-import Link from  'react-router-native'
-//import Link from  'react-router-redux'
+
 
 
 const mapStateToProps = state => {
@@ -110,16 +108,21 @@ const mapStateToProps = state => {
             return (
     
                 <Container>
-                    <Header>
-                        <Body>
-                        <Title>CarSys Work Orders</Title>
-                        </Body>
+                    <Header searchBar rounded>
+                        <Item>
+                            <Icon active name='search' />
+                            <Input placeholder='Search Work Order' />
+                        </Item>
+                        <Button transparent>
+                            <Text>Search</Text>
+                        </Button>
                     </Header>
-                    <Content padder>
+                   
+                    <Content padder >
                    
                     {/* <Button block primary onPress={this.getWorkOrders}style={{marginTop: 10, marginBottom: 10}}><Text>Work Orders</Text></Button> */}
-                    <ScrollView>
-                        {WorkOrders!=undefined  &&       WorkOrders[0]!=undefined &&            
+                    {/* <ScrollView> */}
+                        {WorkOrders!=undefined  &&  WorkOrders[0]!=undefined &&            
                         
                         <FlatList
                             data={WorkOrders}
@@ -133,8 +136,6 @@ const mapStateToProps = state => {
                                         <Text>{item.Vehicle.Registration}</Text>
                                         <Text>{item.Workorder.ID}</Text>
 
-                                    
-
                                     </View>
                                     <View style={{flex: 0.2}} >
                                         <TouchableOpacity   onPress={() => this.addImageToWorkOrder(item.Workorder.UUID, item.Workorder.ID)}    >
@@ -146,7 +147,7 @@ const mapStateToProps = state => {
                             )}
                             keyExtractor={item => item.Workorder.UUID}
                             numColumns={numColumns} />}
-                    </ScrollView>
+                    {/* </ScrollView> */}
                     </Content>
                 </Container>
             )
